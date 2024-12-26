@@ -1,4 +1,3 @@
-
 ### Descrição do Laboratório
 
 Neste laboratório, o objetivo foi criar um ambiente de testes com 3 máquinas utilizando o *Vagrant*.</br>

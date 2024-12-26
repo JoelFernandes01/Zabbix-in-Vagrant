@@ -17,10 +17,14 @@ sudo apt-get update
 echo "Instalar o Zabbix Proxy"
 sudo apt install zabbix-proxy-sqlite3 zabbix-agent2 -y
 echo "Configurar o Zabbix Proxy"
+sudo mkdir /var/lib/zabbix
+sudo chown zabbix. -R /var/lib/zabbix
 sudo sed -i "s/Hostname=Zabbix proxy/Hostname=$ZABBIX_HOST/" /etc/zabbix/zabbix_proxy.conf
-sudo sed -i "s/Server=127.0.0.1/Server=$ZABBIX_PRX,$ZABBIX_SRV/" /etc/zabbix/zabbix_proxy.conf
-sudo sed -i "s/#\s*DBNAme=/DBName=proxy-db/" /etc/zabbix/zabbix_proxy.conf
+sudo sed -i "s/Server=127.0.0.1/Server=$ZABBIX_SRV/" /etc/zabbix/zabbix_proxy.conf
+sudo sed -i 's|^DBName=zabbix_proxy$|DBName=/var/lib/zabbix/zabbix.db|' /etc/zabbix/zabbix_proxy.conf
+#sudo sed -i "s/#\s*ProxyOfflineBuffer=1/ProxyOfflineBuffer=24" /etc/zabbix/zabbix_proxy.conf
 sudo sed -i "s/Hostname=Zabbix server/Hostname=$ZABBIX_HOST/" /etc/zabbix/zabbix_agent2.conf
+#sudo sed -i "s/#\s*ProxyConfigFrequency=10/ProxyConfigFrequency=300" /etc/zabbix/zabbix_proxy.conf
 sudo sed -i "s/#\s*Timeout=3/Timeout=30/" /etc/zabbix/zabbix_agent2.conf
 echo "Reiniciar e habilitar serviços"
 sudo systemctl enable --now zabbix-proxy zabbix-agent2
