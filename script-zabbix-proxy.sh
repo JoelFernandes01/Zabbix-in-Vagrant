@@ -20,6 +20,6 @@ sudo sed -i "s/#\s*DBNAme=/DBName=proxy-db/" /etc/zabbix/zabbix_proxy.conf
 sudo sed -i "s/Hostname=Zabbix server/Hostname=$ZABBIX_HOST/" /etc/zabbix/zabbix_agent2.conf
 sudo sed -i "s/#\s*Timeout=3/Timeout=30/" /etc/zabbix/zabbix_agent2.conf
 echo "Reiniciar e habilitar serviços"
-sudo systemctl enable -now zabbix-proxy zabbix-agent2
+sudo systemctl enable --now zabbix-proxy zabbix-agent2
 sudo systemctl restart zabbix-proxy zabbix-agent2
 #######################################  FIM DA INSTALAÇÃO ###############################################################################
