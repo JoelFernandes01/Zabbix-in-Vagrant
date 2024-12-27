@@ -29,8 +29,8 @@ Vagrant.configure("2") do |config|
     prx.vm.provision "shell", path: "script-agent.sh"
     prx.vm.provider "virtualbox" do |v|
       v.name = "zabbix-proxy"
-      v.memory = 1024
-      v.cpus = 1
+      v.memory = 2048
+      v.cpus = 2
     end
   end
 

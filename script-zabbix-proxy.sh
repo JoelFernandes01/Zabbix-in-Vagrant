@@ -7,6 +7,7 @@ echo '192.168.1.50 zabbix-server.connect.local' >> /etc/hosts
 echo '192.168.1.51 proxy-server.connect.local' >> /etc/hosts
 echo '192.168.1.52 agent.connect.local' >> /etc/hosts
 echo "Atualizar pacotes"
+sudo timedatectl set-timezone America/Sao_Paulo
 sudo apt-get update -y && sudo apt-get upgrade -y
 echo "Baixar o repositório do Zabbix"
 wget https://repo.zabbix.com/zabbix/7.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_latest_7.0+ubuntu22.04_all.deb
@@ -21,12 +22,12 @@ sudo mkdir /var/lib/zabbix
 sudo chown zabbix. -R /var/lib/zabbix
 sudo sed -i "s/Hostname=Zabbix proxy/Hostname=$ZABBIX_HOST/" /etc/zabbix/zabbix_proxy.conf
 sudo sed -i "s/Server=127.0.0.1/Server=$ZABBIX_SRV/" /etc/zabbix/zabbix_proxy.conf
-sudo sed -i 's|^DBName=zabbix_proxy$|DBName=/var/lib/zabbix/zabbix.db|' /etc/zabbix/zabbix_proxy.conf
-#sudo sed -i "s/#\s*ProxyOfflineBuffer=1/ProxyOfflineBuffer=24" /etc/zabbix/zabbix_proxy.conf
+sudo sed -i "s|^DBName=zabbix_proxy$|DBName=/var/lib/zabbix/zabbix.db|" /etc/zabbix/zabbix_proxy.conf
+sudo sed -i "s|^# ProxyOfflineBuffer=1|ProxyOfflineBuffer=24|" /etc/zabbix/zabbix_proxy.conf
 sudo sed -i "s/Hostname=Zabbix server/Hostname=$ZABBIX_HOST/" /etc/zabbix/zabbix_agent2.conf
-#sudo sed -i "s/#\s*ProxyConfigFrequency=10/ProxyConfigFrequency=300" /etc/zabbix/zabbix_proxy.conf
+sudo sed -i "s|^# ProxyConfigFrequency=10|ProxyConfigFrequency=300|" /etc/zabbix/zabbix_proxy.conf
 sudo sed -i "s/#\s*Timeout=3/Timeout=30/" /etc/zabbix/zabbix_agent2.conf
 echo "Reiniciar e habilitar serviços"
-sudo systemctl enable --now zabbix-proxy zabbix-agent2
-sudo systemctl restart zabbix-proxy zabbix-agent2
+sudo systemctl start zabbix-proxy zabbix-agent2
+sudo systemctl enable zabbix-proxy zabbix-agent2
 #######################################  FIM DA INSTALAÇÃO ###############################################################################
