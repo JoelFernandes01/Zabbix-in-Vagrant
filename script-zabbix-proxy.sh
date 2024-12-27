@@ -4,8 +4,8 @@ ZABBIX_AGE="zabbix-agent"
 ZABBIX_HOST=zabbix-proxy
 ZABBIX_PRX="zabbix-proxy.connect.local"
 echo '192.168.1.50 zabbix-server.connect.local' >> /etc/hosts
-echo '192.168.1.51 proxy-server.connect.local' >> /etc/hosts
-echo '192.168.1.52 agent.connect.local' >> /etc/hosts
+echo '192.168.1.60 zabbix-proxy.connect.local' >> /etc/hosts
+echo '192.168.1.70 agent.connect.local' >> /etc/hosts
 echo "Atualizar pacotes"
 sudo timedatectl set-timezone America/Sao_Paulo
 sudo apt-get update -y && sudo apt-get upgrade -y

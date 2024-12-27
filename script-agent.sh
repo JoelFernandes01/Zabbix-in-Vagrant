@@ -3,8 +3,8 @@ ZABBIX_SRV="zabbix-server.connect.local"
 ZABBIX_AGE="zabbix-agent"
 ZABBIX_HOST=zabbix-server
 echo '192.168.1.50 zabbix-server.connect.local' >> /etc/hosts
-echo '192.168.1.51 proxy-server.connect.local' >> /etc/hosts
-echo '192.168.1.52 agent.connect.local' >> /etc/hosts
+echo '192.168.1.60 zabbix-proxy.connect.local' >> /etc/hosts
+echo '192.168.1.70 agent.connect.local' >> /etc/hosts
 sudo timedatectl set-timezone America/Sao_Paulo
 sudo apt-get update -y && sudo apt-get upgrade -y
 sudo wget https://repo.zabbix.com/zabbix/7.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_latest_7.0+ubuntu22.04_all.deb
